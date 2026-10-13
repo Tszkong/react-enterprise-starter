@@ -23,6 +23,28 @@ export function fetchUsers(params: { page: number; pageSize: number }) {
   })
 }
 
+// ========== 写操作（mock） ==========
+export function deleteUser(id: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      const index = mockUsers.findIndex((u) => u.id === id)
+      if (index !== -1) mockUsers.splice(index, 1)
+      resolve()
+    }, 300)
+  })
+}
+
+export function updateUser(id: number, data: Partial<User>) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      const user = mockUsers.find((u) => u.id === id)
+      if (user) Object.assign(user, data)
+      resolve()
+    }, 300)
+  })
+}
+
+
 // ========== 真实项目写法（后端就绪后，把上面整段换成下面这样） ==========
 // import request from './request'
 // export function fetchUsers(params: { page: number; pageSize: number }) {
